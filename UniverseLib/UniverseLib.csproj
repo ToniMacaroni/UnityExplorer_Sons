@@ -1,0 +1,134 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <Configuration Condition=" '$(Configuration)' == '' ">Release_IL2CPP</Configuration>
+        <OutputType>Library</OutputType>
+        <LangVersion>10.0</LangVersion>
+        <DefineConstants>
+        </DefineConstants>
+        <DebugSymbols>false</DebugSymbols>
+        <DebugType>none</DebugType>
+        <PlatformTarget>AnyCPU</PlatformTarget>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+        <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+        <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
+        <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+        <Configurations>ML_Cpp_net6</Configurations>
+        <GamePath>F:\SteamLibrary\steamapps\common\SOTF_Melon</GamePath>
+    </PropertyGroup>
+    <!-- Configurations -->
+    <PropertyGroup>
+        <TargetFramework>net6</TargetFramework>
+        <OutputPath>..\Release\UniverseLib.Il2Cpp.Interop\</OutputPath>
+        <DefineConstants>CPP,INTEROP</DefineConstants>
+        <AssemblyName>UniverseLib.IL2CPP.Interop</AssemblyName>
+        <DocumentationFile>..\Release\UniverseLib.Il2Cpp.Interop\UniverseLib.IL2CPP.Interop.xml</DocumentationFile>
+    </PropertyGroup>
+    <!-- NuGet -->
+    <ItemGroup>
+        <PackageReference Include="HarmonyX" Version="2.10.1" IncludeAssets="compile" />
+        <PackageReference Include="UniverseLib.Analyzers" Version="1.0.4" IncludeAssets="compile" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageReference Include="Il2CppInterop.Common" Version="1.4.0" />
+        <PackageReference Include="Il2CppInterop.Runtime" Version="1.4.0" />
+    </ItemGroup>
+    <ItemGroup Condition="'$(Configuration)' == 'Release_IL2CPP_Unhollower'">
+        <Reference Include="Il2Cppmscorlib">
+            <HintPath>..\lib\unhollowed\Il2Cppmscorlib.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Il2CppSystem.Core">
+            <HintPath>..\lib\unhollowed\Il2CppSystem.Core.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>..\lib\unhollowed\UnityEngine.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>..\lib\unhollowed\UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>..\lib\unhollowed\UnityEngine.PhysicsModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>..\lib\unhollowed\UnityEngine.TextRenderingModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>..\lib\unhollowed\UnityEngine.UI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>..\lib\unhollowed\UnityEngine.UIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>..\lib\unhollowed\UnityEngine.IMGUIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="Il2Cppmscorlib">
+            <HintPath>..\lib\interop\Il2Cppmscorlib.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="Il2CppSystem.Core">
+            <HintPath>..\lib\interop\Il2CppSystem.Core.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine">
+            <HintPath>..\lib\interop\UnityEngine.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>..\lib\interop\UnityEngine.CoreModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>..\lib\interop\UnityEngine.PhysicsModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.TextRenderingModule">
+            <HintPath>..\lib\interop\UnityEngine.TextRenderingModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UI">
+            <HintPath>..\lib\interop\UnityEngine.UI.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+            <HintPath>..\lib\interop\UnityEngine.UIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+            <HintPath>..\lib\interop\UnityEngine.IMGUIModule.dll</HintPath>
+            <Private>False</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+        <EmbeddedResource Include="Resources\*" />
+    </ItemGroup>
+    <Target Name="CopyNuget" AfterTargets="build">
+        <!-- if IL2CPP Unhollower -->
+        <Message Text="Copying IL2CPP Unhollower files..." Importance="high" Condition="'$(Configuration)' == 'Release_IL2CPP_Unhollower'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(OutputPath)..\NuGet_IL2CPP_Unhollower\lib\net472" Condition="'$(Configuration)' == 'Release_IL2CPP_Unhollower'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).xml" DestinationFolder="$(OutputPath)..\NuGet_IL2CPP_Unhollower\lib\net472" Condition="'$(Configuration)' == 'Release_IL2CPP_Unhollower'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(OutputPath)..\NuGet_IL2CPP_Unhollower\lib\net6.0" Condition="'$(Configuration)' == 'Release_IL2CPP_Unhollower'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).xml" DestinationFolder="$(OutputPath)..\NuGet_IL2CPP_Unhollower\lib\net6.0" Condition="'$(Configuration)' == 'Release_IL2CPP_Unhollower'" />
+        <!-- if IL2CPP Interop -->
+        <Message Text="Copying IL2CPP Interop files..." Importance="high" Condition="'$(Configuration)' == 'Release_IL2CPP_Interop'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(OutputPath)..\NuGet_IL2CPP_Interop\lib\net472" Condition="'$(Configuration)' == 'Release_IL2CPP_Interop'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).xml" DestinationFolder="$(OutputPath)..\NuGet_IL2CPP_Interop\lib\net472" Condition="'$(Configuration)' == 'Release_IL2CPP_Interop'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(OutputPath)..\NuGet_IL2CPP_Interop\lib\net6.0" Condition="'$(Configuration)' == 'Release_IL2CPP_Interop'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).xml" DestinationFolder="$(OutputPath)..\NuGet_IL2CPP_Interop\lib\net6.0" Condition="'$(Configuration)' == 'Release_IL2CPP_Interop'" />
+        <!-- if Mono -->
+        <Message Text="Copying Mono files..." Importance="high" Condition="'$(Configuration)' == 'Release_Mono'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).dll" DestinationFolder="$(OutputPath)..\NuGet_Mono\lib\net35" Condition="'$(Configuration)' == 'Release_Mono'" />
+        <Copy SourceFiles="$(OutputPath)$(AssemblyName).xml" DestinationFolder="$(OutputPath)..\NuGet_Mono\lib\net35" Condition="'$(Configuration)' == 'Release_Mono'" />
+    </Target>
+</Project>

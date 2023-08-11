@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project>
+    <PropertyGroup>
+        <OutputAssemblyName>$(OutputPath)$(AssemblyName)</OutputAssemblyName>
+    </PropertyGroup>
+
+    <Target Name="CopyToMods" AfterTargets="Build" Condition="'$(DisableCopyToMods)' != 'True' AND '$(ContinuousIntegrationBuild)' != 'True'">
+        <PropertyGroup>
+            <ModDir>$(GamePath)\Mods</ModDir>
+            <CanCopyToMods>True</CanCopyToMods>
+            <CopyToModsError Condition="!Exists('$(ModDir)')">Unable to copy assembly to game folder.</CopyToModsError>
+            <CanCopyToMods Condition="'$(CopyToModsError)' != ''">False</CanCopyToMods>
+        </PropertyGroup>
+        <Warning Text="$(CopyToModsError)" Condition="'$(CopyToModsError)' != ''"/>
+        <Message Text="Copying '$(OutputAssemblyName).dll' to '$(PluginDir)'." Importance="high" Condition="$(CanCopyToMods)"/>
+        <Copy SourceFiles="$(OutputAssemblyName).dll" DestinationFiles="$(ModDir)\$(AssemblyName).dll" Condition="$(CanCopyToMods)"/>
+        <Copy SourceFiles="$(OutputPath)mcs.dll" DestinationFiles="$(ModDir)\mcs.dll" Condition="$(CanCopyToMods)"/>
+        <Copy SourceFiles="$(OutputAssemblyName).pdb" DestinationFiles="$(ModDir)\$(AssemblyName).pdb" Condition="'$(CanCopyToMods)' == 'True' AND Exists('$(OutputAssemblyName).pdb')"/>
+    </Target>
+</Project>
