@@ -14,11 +14,11 @@ namespace UnityExplorer.Loader.ML
     {
         internal const string CTG_NAME = "UnityExplorer";
 
-        internal MelonPreferences_Category prefCategory;
+        internal ConfigCategory prefCategory;
 
         public override void Init()
         {
-            prefCategory = MelonPreferences.CreateCategory(CTG_NAME, $"{CTG_NAME} Settings", false, false);
+            prefCategory = ConfigSystem.CreateCategory(CTG_NAME, $"{CTG_NAME} Settings", false, false);
             prefCategory.SetFilePath(Path.Combine(MelonEnvironment.UserDataDirectory, "UnityExplorerConfig.cfg"));
         }
 
@@ -27,7 +27,7 @@ namespace UnityExplorer.Loader.ML
             foreach (var entry in ConfigManager.ConfigElements)
             {
                 var key = entry.Key;
-                if (prefCategory.GetEntry(key) is MelonPreferences_Entry)
+                if (prefCategory.GetEntry(key) is ConfigEntry)
                 {
                     var config = entry.Value;
                     config.BoxedValue = config.GetLoaderConfigValue();
@@ -40,10 +40,10 @@ namespace UnityExplorer.Loader.ML
         // A wrapper class is required to link the MelonPreferences_Entry and the delegate instance.
         public class EntryDelegateWrapper<T>
         {
-            public MelonPreferences_Entry<T> entry;
+            public ConfigEntry<T> entry;
             public ConfigElement<T> config;
 
-            public EntryDelegateWrapper(MelonPreferences_Entry<T> entry, ConfigElement<T> config)
+            public EntryDelegateWrapper(ConfigEntry<T> entry, ConfigElement<T> config)
             {
                 this.entry = entry;
                 this.config = config;
@@ -67,7 +67,7 @@ namespace UnityExplorer.Loader.ML
 
         public override void SetConfigValue<T>(ConfigElement<T> config, T value)
         {
-            if (prefCategory.GetEntry<T>(config.Name) is MelonPreferences_Entry<T> entry)
+            if (prefCategory.GetEntry<T>(config.Name) is ConfigEntry<T> entry)
             { 
                 entry.Value = value;
                 //entry.Save();
@@ -76,7 +76,7 @@ namespace UnityExplorer.Loader.ML
 
         public override T GetConfigValue<T>(ConfigElement<T> config)
         {
-            if (prefCategory.GetEntry<T>(config.Name) is MelonPreferences_Entry<T> entry)
+            if (prefCategory.GetEntry<T>(config.Name) is ConfigEntry<T> entry)
                 return entry.Value;
 
             return default;
@@ -88,7 +88,7 @@ namespace UnityExplorer.Loader.ML
 
         public override void SaveConfig()
         {
-            MelonPreferences.Save();
+            ConfigSystem.Save();
         }
     }
 }

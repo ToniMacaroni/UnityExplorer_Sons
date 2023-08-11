@@ -25,7 +25,7 @@ namespace UnityExplorer
     public class ExplorerMelonMod : SonsMod, IExplorerLoader
     {
         public string ExplorerFolderName => ExplorerCore.DEFAULT_EXPLORER_FOLDER_NAME;
-        public string ExplorerFolderDestination => MelonHandler.ModsDirectory;
+        public string ExplorerFolderDestination => MelonEnvironment.ModsDirectory;
 
         public string UnhollowedModulesFolder => MelonEnvironment.Il2CppAssembliesDirectory;
 

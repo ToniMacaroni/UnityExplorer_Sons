@@ -22,6 +22,7 @@
         <OutputPath>..\Release\UnityExplorer.SFLoader\</OutputPath>
         <DefineConstants>CPP,ML,INTEROP,SONS</DefineConstants>
 		<AssemblyName>UnityExplorer.SFLoader</AssemblyName>
+        <InteropFolder>Game</InteropFolder>
     </PropertyGroup>
     <!-- ML IL2CPP net472 (TEMP) -->
     <PropertyGroup Condition="'$(Configuration)'=='ML_Cpp_net472'">
@@ -225,62 +226,62 @@
     <!-- Il2Cpp Interop-->
     <ItemGroup Condition="'$(Configuration)'=='ML_Cpp_net6' or '$(Configuration)'=='BIE_Cpp_CoreCLR'">
         <Reference Include="Il2Cppmscorlib">
-            <HintPath>$(LibsBasePath)\interop\Il2Cppmscorlib.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\Il2Cppmscorlib.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="Il2CppSystem.Core">
-            <HintPath>$(LibsBasePath)\interop\Il2CppSystem.Core.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\Il2CppSystem.Core.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine">
-            <HintPath>$(LibsBasePath)\interop\UnityEngine.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\UnityEngine.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.AudioModule">
-            <HintPath>$(LibsBasePath)\interop\UnityEngine.AudioModule.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\UnityEngine.AudioModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>$(LibsBasePath)\interop\UnityEngine.CoreModule.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\UnityEngine.CoreModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.PhysicsModule">
-            <HintPath>$(LibsBasePath)\interop\UnityEngine.PhysicsModule.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\UnityEngine.PhysicsModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>$(LibsBasePath)\interop\UnityEngine.TextRenderingModule.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\UnityEngine.TextRenderingModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>$(LibsBasePath)\interop\UnityEngine.UI.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\UnityEngine.UI.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.UIModule">
-            <HintPath>$(LibsBasePath)\interop\UnityEngine.UIModule.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\UnityEngine.UIModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="UnityEngine.IMGUIModule">
-            <HintPath>$(LibsBasePath)\interop\UnityEngine.IMGUIModule.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\UnityEngine.IMGUIModule.dll</HintPath>
             <Private>False</Private>
         </Reference>
     </ItemGroup>
     
     <ItemGroup Condition=" $(DefineConstants.Contains('SONS')) ">
         <Reference Include="Sons.Input">
-            <HintPath>$(LibsBasePath)\interop\Sons.Input.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\Sons.Input.dll</HintPath>
         </Reference>
         <Reference Include="Sons">
-            <HintPath>$(LibsBasePath)\interop\Sons.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\Sons.dll</HintPath>
         </Reference>
         <Reference Include="Sons.Ai.Vail">
-            <HintPath>$(LibsBasePath)\interop\Sons.Ai.Vail.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\Sons.Ai.Vail.dll</HintPath>
         </Reference>
         <Reference Include="bolt">
-            <HintPath>$(LibsBasePath)\interop\bolt.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\bolt.dll</HintPath>
         </Reference>
         <Reference Include="bolt.user">
-            <HintPath>$(LibsBasePath)\interop\bolt.user.dll</HintPath>
+            <HintPath>$(LibsBasePath)\$(InteropFolder)\bolt.user.dll</HintPath>
         </Reference>
     </ItemGroup>
 </Project>
