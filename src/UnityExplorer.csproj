@@ -125,7 +125,7 @@
     <!-- MelonLoader net6 -->
     <ItemGroup Condition="'$(Configuration)'=='ML_Cpp_net6'">
         <Reference Include="MelonLoader">
-            <HintPath>$(LibsBasePath)\net6\MelonLoader.dll</HintPath>
+            <HintPath>$(LibsBasePath)\net6\SFLoader.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="SonsSdk">
