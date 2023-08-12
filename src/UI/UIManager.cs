@@ -52,7 +52,7 @@ namespace UnityExplorer.UI
 
         public static RectTransform NavBarRect;
         public static GameObject NavbarTabButtonHolder;
-        private static readonly Vector2 NAVBAR_DIMENSIONS = new(1020f, 35f);
+        private static readonly Vector2 NAVBAR_DIMENSIONS = new(1120f, 35f);
 
         private static ButtonRef closeBtn;
         private static TimeScaleWidget timeScaleWidget;
