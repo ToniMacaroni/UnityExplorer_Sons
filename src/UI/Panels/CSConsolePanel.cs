@@ -15,6 +15,8 @@ namespace UnityExplorer.UI.Panels
         public override int MinHeight => 300;
         public override Vector2 DefaultAnchorMin => new(0.4f, 0.175f);
         public override Vector2 DefaultAnchorMax => new(0.85f, 0.925f);
+        
+        public static bool ClearLogOnCompile { get; set; } = false;
 
         public InputFieldScroller InputScroller { get; private set; }
         public InputFieldRef Input => InputScroller.InputField;
@@ -110,6 +112,15 @@ namespace UnityExplorer.UI.Panels
             autoIndentToggleText.alignment = TextAnchor.UpperLeft;
             autoIndentToggleText.text = "Auto-indent";
             AutoIndentToggle.onValueChanged.AddListener((bool val) => { OnAutoIndentToggled?.Invoke(val); });
+            
+            // Clear log on compile toggle
+            
+            GameObject clearLogToggleObj = UIFactory.CreateToggle(toolsRow, "ClearLogToggle", out Toggle clearLogToggle, out Text clearLogToggleText);
+            UIFactory.SetLayoutElement(clearLogToggleObj, minWidth: 120, flexibleWidth: 0, minHeight: 25);
+            clearLogToggleText.alignment = TextAnchor.UpperLeft;
+            clearLogToggleText.text = "Clear log on compile";
+            clearLogToggle.isOn = ClearLogOnCompile;
+            clearLogToggle.onValueChanged.AddListener((bool val) => { ClearLogOnCompile = val; });
 
             // Console Input
 

@@ -12,7 +12,6 @@ New-Item -ItemType Directory -Path "$destinationDir\Mods" | Out-Null
 New-Item -ItemType Directory -Path "$destinationDir\UserLibs" | Out-Null
 
 Copy-Item -Path "Release\UnityExplorer.SFLoader\UnityExplorer.SFLoader.dll" -Destination "$destinationDir\Mods\"
-Copy-Item -Path "Release\UnityExplorer.SFLoader\mcs.dll" -Destination "$destinationDir\UserLibs\"
 Copy-Item -Path "Release\UniverseLib.Il2Cpp.Interop\UniverseLib.IL2CPP.Interop.dll" -Destination "$destinationDir\UserLibs\"
 
 Set-Location -Path $destinationDir

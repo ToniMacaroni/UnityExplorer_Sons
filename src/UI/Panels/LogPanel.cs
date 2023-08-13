@@ -89,7 +89,7 @@ namespace UnityExplorer.UI.Panels
                 logScrollPool.Refresh(true, false);
         }
 
-        private static void ClearLogs()
+        public static void ClearLogs()
         {
             Logs.Clear();
             logScrollPool.Refresh(true, true);

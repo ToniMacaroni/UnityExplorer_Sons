@@ -16,7 +16,5 @@
         <Message Text="Copying '$(OutputAssemblyName).dll' to '$(PluginDir)'." Importance="high" Condition="$(CanCopyToMods)"/>
         <Copy SourceFiles="$(OutputAssemblyName).dll" DestinationFiles="$(ModDir)\$(AssemblyName).dll" Condition="$(CanCopyToMods)"/>
         <Copy SourceFiles="$(OutputAssemblyName).pdb" DestinationFiles="$(ModDir)\$(AssemblyName).pdb" Condition="'$(CanCopyToMods)' == 'True' AND Exists('$(OutputAssemblyName).pdb')"/>
-
-        <Copy SourceFiles="$(OutputPath)mcs.dll" DestinationFiles="$(UserlibDir)\mcs.dll" Condition="$(CanCopyToMods)"/>
     </Target>
 </Project>

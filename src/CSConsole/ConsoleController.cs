@@ -56,6 +56,9 @@ namespace UnityExplorer.CSConsole
 
         public static void Init()
         {
+            if (!Directory.Exists(ScriptsFolder))
+                Directory.CreateDirectory(ScriptsFolder);
+            
             try
             {
                 ResetConsole(false);
@@ -87,9 +90,6 @@ namespace UnityExplorer.CSConsole
             // Run startup script
             try
             {
-                if (!Directory.Exists(ScriptsFolder))
-                    Directory.CreateDirectory(ScriptsFolder);
-
                 string startupPath = Path.Combine(ScriptsFolder, "startup.cs");
                 if (File.Exists(startupPath))
                 {
@@ -133,9 +133,37 @@ namespace UnityExplorer.CSConsole
             usingDirectives = new HashSet<string>();
             foreach (string use in DefaultUsing)
                 AddUsing(use);
+            
+            AddAdditionalUsings();
 
             if (logSuccess)
                 ExplorerCore.Log($"C# Console reset");//. Using directives:\r\n{Evaluator.GetUsing()}");
+        }
+
+        private static void AddAdditionalUsings()
+        {
+            var usingsFile = Path.Combine(ScriptsFolder, "usings.txt");
+
+            var usings = new HashSet<string>
+            {
+                "TheForest.Utils",
+                "Sons",
+                "SonsSdk",
+                "MelonLoader.Utils",
+            };
+            
+            if (File.Exists(usingsFile))
+            {
+                ExplorerCore.Log($"Import usings from '{usingsFile}'...");
+                string text = File.ReadAllText(usingsFile);
+                usings.UnionWith(text.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.RemoveEmptyEntries));
+            }
+            else
+            {
+                File.WriteAllText(usingsFile, string.Join("\r\n", string.Join("\r\n", usings.ToArray())));
+            }
+
+            usings.Select(x=>x.Trim()).ToList().ForEach(AddUsing);
         }
 
         public static void AddUsing(string assemblyName)
@@ -168,6 +196,11 @@ namespace UnityExplorer.CSConsole
 
             try
             {
+                if (CSConsolePanel.ClearLogOnCompile)
+                {
+                    LogPanel.ClearLogs();
+                }
+                
                 // Compile the code. If it returned a CompiledMethod, it is REPL.
                 CompiledMethod repl = Evaluator.Compile(input);
 

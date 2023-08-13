@@ -128,6 +128,10 @@ namespace UnityExplorer.Inspectors
 
         private void SetTarget(object target)
         {
+            memberFilter = ConfigManager.Disable_Fields_By_Default.Value ?
+                MemberFilter.Property | MemberFilter.Method :
+                MemberFilter.Property | MemberFilter.Method | MemberFilter.Field;
+
             string prefix;
             if (StaticOnly)
             {
@@ -178,9 +182,12 @@ namespace UnityExplorer.Inspectors
             SetFilter(string.Empty, StaticOnly ? BindingFlags.Static : BindingFlags.Default);
             scopeFilterButtons[BindingFlags.Default].Component.gameObject.SetActive(!StaticOnly);
             scopeFilterButtons[BindingFlags.Instance].Component.gameObject.SetActive(!StaticOnly);
-            
-            foreach (Toggle toggle in memberTypeToggles)
-                toggle.isOn = true;
+
+            memberTypeToggles[0].isOn = memberTypeToggles[2].isOn = true;
+            memberTypeToggles[1].isOn = !ConfigManager.Disable_Fields_By_Default.Value;
+
+            // foreach (Toggle toggle in memberTypeToggles)
+            //     toggle.isOn = true;
 
             refreshWanted = true;
         }

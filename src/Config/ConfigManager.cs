@@ -29,6 +29,7 @@ namespace UnityExplorer.Config
         public static ConfigElement<bool> Enable_Material_Sync;
         public static ConfigElement<string> CSConsole_Assembly_Blacklist;
         public static ConfigElement<string> Reflection_Signature_Blacklist;
+        public static ConfigElement<bool> Disable_Fields_By_Default;
 
         // internal configs
         internal static InternalConfigHandler InternalHandler { get; private set; }
@@ -136,6 +137,10 @@ namespace UnityExplorer.Config
             
             Enable_Material_Sync = new("Enable Material Sync",
                 "Should the Material Sync feature be enabled?",
+                true);
+            
+            Disable_Fields_By_Default = new("Disable Fields By Default",
+                "Should fields be hidden by default in the Inspector?",
                 true);
 
             CSConsole_Assembly_Blacklist = new("CSharp Console Assembly Blacklist", 

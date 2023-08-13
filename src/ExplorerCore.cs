@@ -27,7 +27,7 @@ namespace UnityExplorer
 
         public static IExplorerLoader Loader { get; private set; }
         public static string ExplorerFolder => Path.Combine(Loader.ExplorerFolderDestination, Loader.ExplorerFolderName);
-        public const string DEFAULT_EXPLORER_FOLDER_NAME = "sinai-dev-UnityExplorer";
+        public const string DEFAULT_EXPLORER_FOLDER_NAME = "UnityExplorer";
 
         public static HarmonyLib.Harmony Harmony { get; } = new HarmonyLib.Harmony(GUID);
 
@@ -143,6 +143,7 @@ namespace UnityExplorer
         // Can be removed eventually. For migration from <4.7.0
         static void CheckLegacyExplorerFolder()
         {
+            return;
             string legacyPath = Path.Combine(Loader.ExplorerFolderDestination, "UnityExplorer");
             if (Directory.Exists(legacyPath))
             {
