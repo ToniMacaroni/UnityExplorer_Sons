@@ -119,7 +119,7 @@ namespace UnityExplorer.UI
             UIPanels.Add(Panels.AutoCompleter, new AutoCompleteModal(UiBase));
             UIPanels.Add(Panels.ObjectExplorer, new ObjectExplorerPanel(UiBase));
             UIPanels.Add(Panels.Inspector, new InspectorPanel(UiBase));
-            //UIPanels.Add(Panels.CSConsole, new CSConsolePanel(UiBase));
+            UIPanels.Add(Panels.CSConsole, new CSConsolePanel(UiBase));
             UIPanels.Add(Panels.HookManager, new HookManagerPanel(UiBase));
             UIPanels.Add(Panels.Freecam, new FreeCamPanel(UiBase));
             UIPanels.Add(Panels.Clipboard, new ClipboardPanel(UiBase));
@@ -132,7 +132,7 @@ namespace UnityExplorer.UI
 
             // Call some initialize methods
             Notification.Init();
-            //ConsoleController.Init();
+            ConsoleController.Init();
 
             // Failsafe fix, in some games all dropdowns displayed values are blank on startup for some reason.
             foreach (Dropdown dropdown in UIRoot.GetComponentsInChildren<Dropdown>(true))
