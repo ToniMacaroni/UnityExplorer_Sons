@@ -10,6 +10,7 @@ using UniverseLib.UI;
 using UniverseLib.UI.Models;
 
 #if SONS
+using SFLoader;
 using Sons.Ai.Vail;
 using TheForest.Utils;
 using InputSystem = Sons.Input.InputSystem;
@@ -100,13 +101,12 @@ namespace UnityExplorer.UI
             cursorState._hardwareCursor = true;
             cursorState._enabled = true;
             cursorState._priority = 999;
-
-            var mapping = UIRoot.AddComponent<Sons.Input.InputActionMapState>();
-            mapping._applyState = InputState.Console;
             
-            var eventSystem = UIRoot.AddComponent<UnityEngine.EventSystems.EventSystem>();
-            var standaloneInputModule = UIRoot.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
-            var baseInputModule = UIRoot.AddComponent<UnityEngine.EventSystems.BaseInput>();
+            UIRoot.AddComponent<Sons.Input.InputActionMapState>();
+            
+            UIRoot.AddComponent<UnityEngine.EventSystems.EventSystem>();
+            UIRoot.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+            UIRoot.AddComponent<UnityEngine.EventSystems.BaseInput>();
 #endif
 
             UIRootRect = UIRoot.GetComponent<RectTransform>();
