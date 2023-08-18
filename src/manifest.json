@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/ToniMacaroni/SFLoader/main/MetadataSchema.json",
+  "$schema": "https://raw.githubusercontent.com/ToniMacaroni/RedLoader/main/MetadataSchema.json",
   "id": "UnityExplorer",
   "author": "Sinaidev, Toni Macaroni",
   "version": "4.9.1",

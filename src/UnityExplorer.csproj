@@ -13,13 +13,13 @@
         <LangVersion>10.0</LangVersion>
         <Configurations>BIE_Cpp;BIE_Cpp_CoreCLR;BIE5_Mono;BIE6_Mono;ML_Cpp_net6;ML_Cpp_net472;ML_Mono;STANDALONE_Mono;STANDALONE_Cpp</Configurations>
         <GamePath>F:\SteamLibrary\steamapps\common\SOTF_Melon</GamePath>
-        <LibsBasePath>$(GamePath)\_SFLoader</LibsBasePath>
+        <LibsBasePath>$(GamePath)\_RedLoader</LibsBasePath>
     </PropertyGroup>
     <!-- ~~~~~ CONFIGURATIONS ~~~~~ -->
     <!-- ML IL2CPP net6 -->
     <PropertyGroup Condition="'$(Configuration)'=='ML_Cpp_net6'">
         <TargetFramework>net6</TargetFramework>
-        <OutputPath>..\Release\UnityExplorer.SFLoader\</OutputPath>
+        <OutputPath>..\Release\UnityExplorer.RedLoader\</OutputPath>
         <DefineConstants>CPP,ML,INTEROP,SONS</DefineConstants>
 		<AssemblyName>UnityExplorer</AssemblyName>
         <InteropFolder>Game</InteropFolder>
@@ -125,7 +125,7 @@
     <!-- MelonLoader net6 -->
     <ItemGroup Condition="'$(Configuration)'=='ML_Cpp_net6'">
         <Reference Include="MelonLoader">
-            <HintPath>$(LibsBasePath)\net6\SFLoader.dll</HintPath>
+            <HintPath>$(LibsBasePath)\net6\RedLoader.dll</HintPath>
             <Private>False</Private>
         </Reference>
         <Reference Include="SonsSdk">
