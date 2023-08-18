@@ -1,0 +1,9 @@
+{
+  "$schema": "https://raw.githubusercontent.com/ToniMacaroni/SFLoader/main/MetadataSchema.json",
+  "id": "UnityExplorer",
+  "author": "Sinaidev, Toni Macaroni",
+  "version": "4.9.1",
+  "description": "UnityExplorer fork with various fixes and features for Sons Of The Forest",
+  "gameVersion": "1.0.0",
+  "url": "https://github.com/ToniMacaroni/UnityExplorer_Sons"
+}

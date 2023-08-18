@@ -73,14 +73,6 @@ namespace UnityExplorer.UI
                 UniversalUI.SetUIActive(ExplorerCore.GUID, value);
                 UniversalUI.SetUIActive(MouseInspector.UIBaseGUID, value);
 
-#if SONS
-                if (LocalPlayer.IsInWorld)
-                {
-                    InputSystem.SetState(InputState.Menu, value);
-                    LocalPlayer.FpCharacter.Locked = value;
-                }
-#endif
-
                 if (!ShouldRenderGame)
                 {
                     if (value)
@@ -102,6 +94,20 @@ namespace UnityExplorer.UI
         internal static void InitUI()
         {
             UiBase = UniversalUI.RegisterUI<ExplorerUIBase>(ExplorerCore.GUID, Update);
+
+#if SONS
+            var cursorState = UIRoot.AddComponent<Sons.Input.InputCursorState>();
+            cursorState._hardwareCursor = true;
+            cursorState._enabled = true;
+            cursorState._priority = 999;
+
+            var mapping = UIRoot.AddComponent<Sons.Input.InputActionMapState>();
+            mapping._applyState = InputState.Console;
+            
+            var eventSystem = UIRoot.AddComponent<UnityEngine.EventSystems.EventSystem>();
+            var standaloneInputModule = UIRoot.AddComponent<UnityEngine.EventSystems.StandaloneInputModule>();
+            var baseInputModule = UIRoot.AddComponent<UnityEngine.EventSystems.BaseInput>();
+#endif
 
             UIRootRect = UIRoot.GetComponent<RectTransform>();
             UICanvas = UIRoot.GetComponent<Canvas>();

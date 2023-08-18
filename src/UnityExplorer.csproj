@@ -21,7 +21,7 @@
         <TargetFramework>net6</TargetFramework>
         <OutputPath>..\Release\UnityExplorer.SFLoader\</OutputPath>
         <DefineConstants>CPP,ML,INTEROP,SONS</DefineConstants>
-		<AssemblyName>UnityExplorer.SFLoader</AssemblyName>
+		<AssemblyName>UnityExplorer</AssemblyName>
         <InteropFolder>Game</InteropFolder>
     </PropertyGroup>
     <!-- ML IL2CPP net472 (TEMP) -->
@@ -283,5 +283,11 @@
         <Reference Include="bolt.user">
             <HintPath>$(LibsBasePath)\$(InteropFolder)\bolt.user.dll</HintPath>
         </Reference>
+    </ItemGroup>
+    
+    <ItemGroup>
+      <None Update="manifest.json">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </None>
     </ItemGroup>
 </Project>

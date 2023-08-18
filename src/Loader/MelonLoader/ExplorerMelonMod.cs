@@ -1,8 +1,8 @@
 ﻿#if ML
 using System;
 using System.IO;
-using MelonLoader;
-using MelonLoader.Utils;
+using SFLoader;
+using SFLoader.Utils;
 using SonsSdk;
 using UnityExplorer;
 using UnityExplorer.Config;
@@ -16,9 +16,6 @@ using UniverseLib.UI;
 #else
 [assembly: MelonPlatformDomain(MelonPlatformDomainAttribute.CompatibleDomains.MONO)]
 #endif
-
-[assembly: SonsModInfo(typeof(ExplorerMelonMod), ExplorerCore.NAME, ExplorerCore.VERSION, ExplorerCore.AUTHOR)]
-[assembly: MelonColor(ConsoleColor.DarkMagenta)]
 
 namespace UnityExplorer
 {
@@ -36,7 +33,7 @@ namespace UnityExplorer
         public Action<object> OnLogWarning => LoggerInstance.Warning;
         public Action<object> OnLogError   => LoggerInstance.Error;
 
-        public override void OnInitializeMelon()
+        public override void OnInitializeMod()
         {
             _configHandler = new MelonLoaderConfigHandler();
             ExplorerCore.Init(this);

@@ -95,7 +95,8 @@ namespace UniverseLib.UI
                 else if (uiBase != PanelManager.resizeCursorUIBase)
                     PanelManager.ForceEndResize();
 
-                CursorUnlocker.UpdateCursorControl();
+                // Change: Disable cursor unlocking on UnviverseLib side.
+                // CursorUnlocker.UpdateCursorControl();
                 return;
             }
             throw new ArgumentException($"There is no UI registered with the id '{id}'");

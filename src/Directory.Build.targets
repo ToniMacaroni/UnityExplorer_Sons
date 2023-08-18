@@ -15,6 +15,7 @@
         <Warning Text="$(CopyToModsError)" Condition="'$(CopyToModsError)' != ''"/>
         <Message Text="Copying '$(OutputAssemblyName).dll' to '$(PluginDir)'." Importance="high" Condition="$(CanCopyToMods)"/>
         <Copy SourceFiles="$(OutputAssemblyName).dll" DestinationFiles="$(ModDir)\$(AssemblyName).dll" Condition="$(CanCopyToMods)"/>
+        <Copy SourceFiles="$(OutputPath)manifest.json" DestinationFiles="$(ModDir)\UnityExplorer\manifest.json"/>
         <Copy SourceFiles="$(OutputAssemblyName).pdb" DestinationFiles="$(ModDir)\$(AssemblyName).pdb" Condition="'$(CanCopyToMods)' == 'True' AND Exists('$(OutputAssemblyName).pdb')"/>
     </Target>
 </Project>

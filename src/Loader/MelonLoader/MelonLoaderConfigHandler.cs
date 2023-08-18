@@ -1,10 +1,10 @@
 #if ML
-using MelonLoader;
+using SFLoader;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using MelonLoader.Utils;
+using SFLoader.Utils;
 using UnityEngine;
 using UnityExplorer.Config;
 

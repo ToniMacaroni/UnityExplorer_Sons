@@ -46,6 +46,7 @@ namespace UnityExplorer.CSConsole
             "System.Reflection",
             "UnityEngine",
             "UniverseLib",
+            "UnityExplorer",
 #if CPP
             "UnhollowerBaseLib",
             "UnhollowerRuntimeLib",
