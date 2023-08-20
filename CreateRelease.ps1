@@ -10,10 +10,10 @@ Set-Location -Path ..
 
 New-Item -ItemType Directory -Path "$destinationDir\Mods" | Out-Null
 New-Item -ItemType Directory -Path "$destinationDir\Mods\UnityExplorer" | Out-Null
-New-Item -ItemType Directory -Path "$destinationDir\UserLibs" | Out-Null
+New-Item -ItemType Directory -Path "$destinationDir\Libs" | Out-Null
 
-Copy-Item -Path "Release\UnityExplorer.SFLoader\UnityExplorer.SFLoader.dll" -Destination "$destinationDir\Mods\"
-Copy-Item -Path "Release\UnityExplorer.SFLoader\manifest.json" -Destination "$destinationDir\Mods\UnityExplorer\"
+Copy-Item -Path "Release\UnityExplorer.RedLoader\UnityExplorer.dll" -Destination "$destinationDir\Mods\"
+Copy-Item -Path "Release\UnityExplorer.RedLoader\manifest.json" -Destination "$destinationDir\Mods\UnityExplorer\"
 Copy-Item -Path "Release\UniverseLib.Il2Cpp.Interop\UniverseLib.IL2CPP.Interop.dll" -Destination "$destinationDir\Libs\"
 
 Set-Location -Path $destinationDir
