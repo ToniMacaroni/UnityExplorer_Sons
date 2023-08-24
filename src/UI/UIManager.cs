@@ -45,6 +45,12 @@ namespace UnityExplorer.UI
         public static bool Initializing { get; internal set; } = true;
 
         internal static UIBase UiBase { get; private set; }
+        
+        internal static CanvasGroup OverlayGroup { get; private set; }
+        internal const float OVERLAY_ALPHA = 0.4f;
+
+        internal static UIBase OverlayBase { get; private set; }
+        
         public static GameObject UIRoot => UiBase?.RootObject;
         public static RectTransform UIRootRect { get; private set; }
         public static Canvas UICanvas { get; private set; }
@@ -73,6 +79,9 @@ namespace UnityExplorer.UI
 
                 UniversalUI.SetUIActive(ExplorerCore.GUID, value);
                 UniversalUI.SetUIActive(MouseInspector.UIBaseGUID, value);
+                
+                OverlayGroup.alpha = value ? 1 : OVERLAY_ALPHA;
+                OverlayGroup.interactable = value;
 
                 if (!ShouldRenderGame)
                 {
@@ -95,6 +104,9 @@ namespace UnityExplorer.UI
         internal static void InitUI()
         {
             UiBase = UniversalUI.RegisterUI<ExplorerUIBase>(ExplorerCore.GUID, Update);
+            OverlayBase = UniversalUI.RegisterUI<ExplorerOverlayUIBase>("ue_overlay", () => { });
+            OverlayGroup = OverlayBase.Canvas.gameObject.AddComponent<CanvasGroup>();
+            OverlayGroup.alpha = OVERLAY_ALPHA;
 
 #if SONS
             var cursorState = UIRoot.AddComponent<Sons.Input.InputCursorState>();
@@ -129,7 +141,7 @@ namespace UnityExplorer.UI
             UIPanels.Add(Panels.HookManager, new HookManagerPanel(UiBase));
             UIPanels.Add(Panels.Freecam, new FreeCamPanel(UiBase));
             UIPanels.Add(Panels.Clipboard, new ClipboardPanel(UiBase));
-            UIPanels.Add(Panels.ConsoleLog, new LogPanel(UiBase));
+            UIPanels.Add(Panels.ConsoleLog, new LogPanel(OverlayBase));
             UIPanels.Add(Panels.Options, new OptionsPanel(UiBase));
             UIPanels.Add(Panels.UIInspectorResults, new MouseInspectorResultsPanel(UiBase));
 

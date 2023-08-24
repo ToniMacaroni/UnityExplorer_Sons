@@ -24,8 +24,8 @@ namespace UnityExplorer.UI.Panels
 
         public override int MinWidth => 350;
         public override int MinHeight => 75;
-        public override Vector2 DefaultAnchorMin => new(0.5f, 0.03f);
-        public override Vector2 DefaultAnchorMax => new(0.9f, 0.2f);
+        public override Vector2 DefaultAnchorMin => new(0.65f, 0.7f);
+        public override Vector2 DefaultAnchorMax => new(1f, 1f);
 
         public override bool ShouldSaveActiveState => true;
         public override bool ShowByDefault => true;
@@ -57,6 +57,9 @@ namespace UnityExplorer.UI.Panels
 
         private void SetupIO()
         {
+            if (!ConfigManager.Enable_File_Logs.Value)
+                return;
+            
             string fileName = $"UnityExplorer {DateTime.Now:u}.txt";
             fileName = IOUtility.EnsureValidFilename(fileName);
             string path = Path.Combine(ExplorerCore.ExplorerFolder, "Logs");

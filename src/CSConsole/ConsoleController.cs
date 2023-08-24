@@ -5,6 +5,7 @@ using UnityExplorer.UI;
 using UnityExplorer.UI.Panels;
 using UniverseLib.Input;
 using UniverseLib.UI.Models;
+using Enum = System.Enum;
 
 namespace UnityExplorer.CSConsole
 {
@@ -26,6 +27,8 @@ namespace UnityExplorer.CSConsole
         public static InputFieldRef Input => Panel.Input;
 
         public static string ScriptsFolder => Path.Combine(ExplorerCore.ExplorerFolder, "Scripts");
+        
+        public static List<QuickScriptDescription> QuickScripts { get; private set; } = new();
 
         static HashSet<string> usingDirectives;
         static StringBuilder evaluatorOutput;
@@ -35,6 +38,61 @@ namespace UnityExplorer.CSConsole
         static bool settingCaretCoroutine;
         static string previousInput;
         static int previousContentLength = 0;
+
+        public class QuickScriptDescription
+        {
+            public KeyCode Key;
+            public string FilePath;
+
+            public bool UseControl;
+            public bool UseShift;
+
+            public string Code;
+
+            public static QuickScriptDescription Parse(string path)
+            {
+                if (!File.Exists(path))
+                    return null;
+                
+                var code = File.ReadAllText(path);
+                var firstLine = code.Split('\n')[0];
+                if (!firstLine.StartsWith("//"))
+                {
+                    return null;
+                }
+                
+                var keyStr = firstLine.Substring(2).Trim();
+                
+                var useControl = keyStr.Contains('^');
+                var useShift = keyStr.Contains('+');
+                if(useControl)
+                    keyStr = keyStr.Substring(1);
+                
+                if (useShift)
+                    keyStr = keyStr.Substring(1);
+
+                if (!Enum.TryParse(keyStr, out KeyCode key))
+                {
+                    return null;
+                }
+                
+                ExplorerCore.Log($"Loaded quick script CTRL:{useControl} SHIFT:{useShift} KEY:{key} from {path}");
+                
+                return new QuickScriptDescription
+                {
+                    Key = key,
+                    FilePath = path,
+                    Code = code,
+                    UseControl = useControl,
+                    UseShift = useShift
+                };
+            }
+
+            public void LoadCode()
+            {
+                Code = File.ReadAllText(FilePath);
+            }
+        }
 
         static readonly string[] DefaultUsing = new string[]
         {
@@ -104,6 +162,8 @@ namespace UnityExplorer.CSConsole
             {
                 ExplorerCore.LogWarning($"Exception executing startup script: {ex}");
             }
+            
+            LoadQuickScripts();
         }
 
 
@@ -173,6 +233,40 @@ namespace UnityExplorer.CSConsole
             {
                 Evaluate($"using {assemblyName};", true);
                 usingDirectives.Add(assemblyName);
+            }
+        }
+
+        public static void RunQuickScript(QuickScriptDescription script)
+        {
+            script.LoadCode();
+            Input.Text = script.Code;
+            Evaluate();
+            
+            ExplorerCore.Log($"Executed quick script {script.FilePath}");
+        }
+
+        public static void CheckQuickScripts()
+        {
+            var isCtrl = InputManager.GetKey(KeyCode.LeftControl);
+            var isShift = InputManager.GetKey(KeyCode.LeftShift);
+            
+            foreach (var script in QuickScripts)
+            {
+                if(InputManager.GetKeyDown(script.Key) && script.UseControl == isCtrl && script.UseShift == isShift)
+                    RunQuickScript(script);
+            }
+        }
+        
+        public static void LoadQuickScripts()
+        {
+            QuickScripts.Clear();
+            
+            var files = Directory.GetFiles(ScriptsFolder, "*.cs");
+            foreach (var file in files)
+            {
+                var script = QuickScriptDescription.Parse(file);
+                if(script != null)
+                    QuickScripts.Add(script);
             }
         }
 

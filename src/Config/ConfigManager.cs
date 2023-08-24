@@ -30,6 +30,8 @@ namespace UnityExplorer.Config
         public static ConfigElement<string> CSConsole_Assembly_Blacklist;
         public static ConfigElement<string> Reflection_Signature_Blacklist;
         public static ConfigElement<bool> Disable_Fields_By_Default;
+        public static ConfigElement<bool> Enable_File_Logs;
+        public static ConfigElement<KeyCode> Debug_Box_Toggle_Key;
 
         // internal configs
         internal static InternalConfigHandler InternalHandler { get; private set; }
@@ -154,6 +156,14 @@ namespace UnityExplorer.Config
                 "Seperate signatures with a semicolon ';'.\r\n" +
                 "For example, to blacklist Camera.main, you would add 'UnityEngine.Camera.main;'",
                 "");
+
+            Enable_File_Logs = new("Enable File Logs", 
+                "Should UnityExplorer write to any log files?",
+                false);
+            
+            Debug_Box_Toggle_Key = new("Debug Box Toggle Key", 
+                "The keybind to toggle the Debug Box.",
+                KeyCode.Delete);
         }
     }
 }

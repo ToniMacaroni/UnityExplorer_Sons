@@ -8,20 +8,23 @@ global using UnityEngine.UI;
 global using UniverseLib;
 global using UniverseLib.Utility;
 using ForestNanosuit;
+using RedLoader;
 using UnityExplorer.Config;
+using UnityExplorer.CSConsole;
 using UnityExplorer.Inspectors;
 using UnityExplorer.ObjectExplorer;
 using UnityExplorer.Runtime;
 using UnityExplorer.UI;
 using UnityExplorer.UI.Panels;
 using UniverseLib.Input;
+using Color = System.Drawing.Color;
 
 namespace UnityExplorer
 {
     public static class ExplorerCore
     {
         public const string NAME = "UnityExplorer";
-        public const string VERSION = "4.9.1";
+        public const string VERSION = "4.9.3";
         public const string AUTHOR = "Sinai";
         public const string GUID = "com.sinai.unityexplorer";
 
@@ -29,7 +32,7 @@ namespace UnityExplorer
         public static string ExplorerFolder => Path.Combine(Loader.ExplorerFolderDestination, Loader.ExplorerFolderName);
         public const string DEFAULT_EXPLORER_FOLDER_NAME = "UnityExplorer";
 
-        public static HarmonyLib.Harmony Harmony { get; } = new HarmonyLib.Harmony(GUID);
+        public static HarmonyLib.Harmony Harmony { get; } = new(GUID);
 
         /// <summary>
         /// Initialize UnityExplorer with the provided Loader implementation.
@@ -73,10 +76,28 @@ namespace UnityExplorer
             Log($"{NAME} {VERSION} ({Universe.Context}) initialized.");
             
             MaterialSync.Start();
-
+            
+            RLog.MsgDrawingCallbackHandler += OnRLogMsg;
+            RLog.ErrorCallbackHandler += OnRLogError;
+            RLog.WarningCallbackHandler += OnRLogWarning;
             // InspectorManager.Inspect(typeof(Tests.TestClass));
         }
 
+        private static void OnRLogMsg(Color namesectionColor, Color textColor, string namesection, string text)
+        {
+            LogPanel.Log($"[{namesection}] {text}", LogType.Log);
+        }
+        
+        private static void OnRLogWarning(string namesection, string text)
+        {
+            LogPanel.Log($"[{namesection}] {text}", LogType.Warning);
+        }
+
+        private static void OnRLogError(string namesection, string text)
+        {
+            LogPanel.Log($"[{namesection}] {text}", LogType.Error);
+        }
+        
         internal static void Update()
         {
             // check master toggle
@@ -85,10 +106,12 @@ namespace UnityExplorer
                 UIManager.ShowMenu = !UIManager.ShowMenu;
             }
 
-            if (InputManager.GetKeyDown(KeyCode.Delete))
+            if (InputManager.GetKeyDown(ConfigManager.Debug_Box_Toggle_Key.Value))
             {
                 GameObjectInspector.ToggleBoxDebug();
             }
+            
+            ConsoleController.CheckQuickScripts();
         }
 
 
