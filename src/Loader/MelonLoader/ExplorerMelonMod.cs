@@ -22,9 +22,9 @@ namespace UnityExplorer
     public class ExplorerMelonMod : SonsMod, IExplorerLoader
     {
         public string ExplorerFolderName => ExplorerCore.DEFAULT_EXPLORER_FOLDER_NAME;
-        public string ExplorerFolderDestination => MelonEnvironment.ModsDirectory;
+        public string ExplorerFolderDestination => LoaderEnvironment.ModsDirectory;
 
-        public string UnhollowedModulesFolder => MelonEnvironment.Il2CppAssembliesDirectory;
+        public string UnhollowedModulesFolder => LoaderEnvironment.Il2CppAssembliesDirectory;
 
         public ConfigHandler ConfigHandler => _configHandler;
         public MelonLoaderConfigHandler _configHandler;
@@ -33,7 +33,7 @@ namespace UnityExplorer
         public Action<object> OnLogWarning => LoggerInstance.Warning;
         public Action<object> OnLogError   => LoggerInstance.Error;
 
-        public override void OnInitializeMod()
+        protected override void OnInitializeMod()
         {
             _configHandler = new MelonLoaderConfigHandler();
             ExplorerCore.Init(this);

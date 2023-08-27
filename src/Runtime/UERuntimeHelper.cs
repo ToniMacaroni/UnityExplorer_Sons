@@ -160,7 +160,7 @@ namespace UnityExplorer.Runtime
 
             var outName = $"{sanitizedGameObjectName}_{target.GetActualType().Name}.txt";
 
-            var newDir = new DirectoryInfo(MelonEnvironment.GameRootDirectory).CreateSubdirectory("ComponentDumps");
+            var newDir = new DirectoryInfo(LoaderEnvironment.GameRootDirectory).CreateSubdirectory("ComponentDumps");
 
             File.WriteAllText(Path.Combine(newDir.FullName, outName), writer.ToString());
             ExplorerCore.Log("Dumped component to file!");

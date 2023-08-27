@@ -83,18 +83,40 @@ namespace UnityExplorer
             // InspectorManager.Inspect(typeof(Tests.TestClass));
         }
 
+        internal static void Shutdown()
+        {
+            RLog.MsgDrawingCallbackHandler -= OnRLogMsg;
+            RLog.ErrorCallbackHandler -= OnRLogError;
+            RLog.WarningCallbackHandler -= OnRLogWarning;
+        }
+
         private static void OnRLogMsg(Color namesectionColor, Color textColor, string namesection, string text)
         {
+            if(!ConfigManager.Enable_Loader_Logs.Value)
+            {
+                return;
+            }
+
             LogPanel.Log($"[{namesection}] {text}", LogType.Log);
         }
         
         private static void OnRLogWarning(string namesection, string text)
         {
+            if(!ConfigManager.Enable_Loader_Logs.Value)
+            {
+                return;
+            }
+            
             LogPanel.Log($"[{namesection}] {text}", LogType.Warning);
         }
 
         private static void OnRLogError(string namesection, string text)
         {
+            if(!ConfigManager.Enable_Loader_Logs.Value)
+            {
+                return;
+            }
+            
             LogPanel.Log($"[{namesection}] {text}", LogType.Error);
         }
         
@@ -109,6 +131,11 @@ namespace UnityExplorer
             if (InputManager.GetKeyDown(ConfigManager.Debug_Box_Toggle_Key.Value))
             {
                 GameObjectInspector.ToggleBoxDebug();
+            }
+
+            if (InputManager.GetKeyDown(ConfigManager.Log_Panel_Toggle_Key.Value))
+            {
+                UIManager.TogglePanel(UIManager.Panels.ConsoleLog);
             }
             
             ConsoleController.CheckQuickScripts();

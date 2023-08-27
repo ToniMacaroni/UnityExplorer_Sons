@@ -47,6 +47,8 @@ namespace UnityExplorer
         {
             if (quitting) return;
             quitting = true;
+            
+            ExplorerCore.Shutdown();
 
             TryDestroy(UIManager.UIRoot?.transform.root.gameObject);
 

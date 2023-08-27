@@ -51,6 +51,8 @@ namespace UnityExplorer.UI.Panels
                 logScrollPool.Initialize(this);
                 DoneScrollPoolInit = true;
             }
+            
+            UIManager.OverlayGroup.gameObject.SetActive(active);
 
             logScrollPool.Refresh(true, false);
         }

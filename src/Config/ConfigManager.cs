@@ -32,6 +32,8 @@ namespace UnityExplorer.Config
         public static ConfigElement<bool> Disable_Fields_By_Default;
         public static ConfigElement<bool> Enable_File_Logs;
         public static ConfigElement<KeyCode> Debug_Box_Toggle_Key;
+        public static ConfigElement<bool> Enable_Loader_Logs;
+        public static ConfigElement<KeyCode> Log_Panel_Toggle_Key;
 
         // internal configs
         internal static InternalConfigHandler InternalHandler { get; private set; }
@@ -164,6 +166,14 @@ namespace UnityExplorer.Config
             Debug_Box_Toggle_Key = new("Debug Box Toggle Key", 
                 "The keybind to toggle the Debug Box.",
                 KeyCode.Delete);
+            
+            Enable_Loader_Logs = new("Enable Loader Logs",
+                "Should logs from the loader appear in the log panel?",
+                true);
+            
+            Log_Panel_Toggle_Key = new("Log Window Toggle Key",
+                "The keybind to toggle the Log Window.",
+                KeyCode.F11);
         }
     }
 }

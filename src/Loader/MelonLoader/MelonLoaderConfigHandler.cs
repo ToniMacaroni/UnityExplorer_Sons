@@ -19,7 +19,7 @@ namespace UnityExplorer.Loader.ML
         public override void Init()
         {
             prefCategory = ConfigSystem.CreateCategory(CTG_NAME, $"{CTG_NAME} Settings", false, false);
-            prefCategory.SetFilePath(Path.Combine(MelonEnvironment.UserDataDirectory, "UnityExplorerConfig.cfg"));
+            prefCategory.SetFilePath(Path.Combine(LoaderEnvironment.UserDataDirectory, "UnityExplorerConfig.cfg"));
         }
 
         public override void LoadConfig()
