@@ -34,6 +34,9 @@ namespace UnityExplorer.Config
         public static ConfigElement<KeyCode> Debug_Box_Toggle_Key;
         public static ConfigElement<bool> Enable_Loader_Logs;
         public static ConfigElement<KeyCode> Log_Panel_Toggle_Key;
+        public static ConfigElement<string> Inspector_Ignore_Layers;
+        public static ConfigElement<bool> Enable_Ui_Inspector;
+        public static ConfigElement<bool> Enable_Material_Inspector;
 
         // internal configs
         internal static InternalConfigHandler InternalHandler { get; private set; }
@@ -174,6 +177,18 @@ namespace UnityExplorer.Config
             Log_Panel_Toggle_Key = new("Log Window Toggle Key",
                 "The keybind to toggle the Log Window.",
                 KeyCode.F11);
+
+            Inspector_Ignore_Layers = new("Inspector Ignore Layers",
+                "Layers to ignore when using the mouse inspector.",
+                "");
+            
+            Enable_Ui_Inspector = new("Enable UI Inspector",
+                "Should the UI Inspector be enabled?",
+                false);
+            
+            Enable_Material_Inspector = new("Enable Material Inspector",
+                "Should the Material Inspector be enabled?",
+                false);
         }
     }
 }

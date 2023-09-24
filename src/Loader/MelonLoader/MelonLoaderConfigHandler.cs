@@ -47,11 +47,10 @@ namespace UnityExplorer.Loader.ML
             {
                 this.entry = entry;
                 this.config = config;
-                var evt = entry.GetType().GetEvent("OnValueChangedUntyped");
-                evt.AddEventHandler(entry, Delegate.CreateDelegate(evt.EventHandlerType, this, GetType().GetMethod("OnChanged")));
+                this.entry.OnValueChangedUntyped.Subscribe(OnChanged);
             }
 
-            public void OnChanged()
+            public void OnChanged(object o, object o1)
             {
                 if ((entry.Value == null && config.Value == null) || config.Value.Equals(entry.Value))
                     return;

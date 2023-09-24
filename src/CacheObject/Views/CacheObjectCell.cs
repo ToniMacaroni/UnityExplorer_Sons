@@ -55,6 +55,8 @@ namespace UnityExplorer.CacheObject.Views
         public ButtonRef CopyButton;
         public ButtonRef PasteButton;
 
+        public bool OnlySubContent;
+
         public readonly Color subInactiveColor = new(0.23f, 0.23f, 0.23f);
         public readonly Color subActiveColor = new(0.23f, 0.33f, 0.23f);
 
@@ -214,6 +216,11 @@ namespace UnityExplorer.CacheObject.Views
             GameObject separator = UIFactory.CreateUIObject("BottomSeperator", UIRoot);
             UIFactory.SetLayoutElement(separator, minHeight: 1, flexibleHeight: 0, flexibleWidth: 9999);
             separator.AddComponent<Image>().color = Color.black;
+
+            if (OnlySubContent)
+            {
+                rightHoriGroup.SetActive(false);
+            }
 
             return UIRoot;
         }

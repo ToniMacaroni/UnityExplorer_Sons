@@ -10,7 +10,7 @@
         <RootNamespace>UnityExplorer</RootNamespace>
         <LangVersion>10.0</LangVersion>
         <Configurations>BIE_Cpp;BIE_Cpp_CoreCLR;BIE5_Mono;BIE6_Mono;ML_Cpp_net6;ML_Cpp_net472;ML_Mono;STANDALONE_Mono;STANDALONE_Cpp</Configurations>
-        <GamePath>F:\SteamLibrary\steamapps\common\SOTF_Melon</GamePath>
+        <GamePath>F:\SteamLibrary\steamapps\common\Sons Of The Forest</GamePath>
         <LibsBasePath>$(GamePath)\_RedLoader</LibsBasePath>
     </PropertyGroup>
     <!-- ~~~~~ CONFIGURATIONS ~~~~~ -->
@@ -87,6 +87,12 @@
             <Private>True</Private>
         </Reference>
         <PackageReference Include="Samboy063.Tomlet" Version="5.0.0" />
+        <Reference Include="UnityEngine.AnimationModule">
+          <HintPath>F:\SteamLibrary\steamapps\common\Sons Of The Forest\_RedLoader\Game\UnityEngine.AnimationModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ImageConversionModule">
+          <HintPath>F:\SteamLibrary\steamapps\common\Sons Of The Forest\_RedLoader\Game\UnityEngine.ImageConversionModule.dll</HintPath>
+        </Reference>
     </ItemGroup>
     <!-- il2cpp nuget -->
     <ItemGroup Condition="'$(Configuration)'=='ML_Cpp_net6'">

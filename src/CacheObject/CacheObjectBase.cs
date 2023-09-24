@@ -115,7 +115,7 @@ namespace UnityExplorer.CacheObject
 
             // If the owner's ParentCacheObject is set, we are setting the value of an inspected struct.
             // Set the inspector target as the value back to that parent.
-            if (Owner.ParentCacheObject != null)
+            if (Owner?.ParentCacheObject != null)
                 Owner.ParentCacheObject.SetUserValue(Owner.Target);
         }
 

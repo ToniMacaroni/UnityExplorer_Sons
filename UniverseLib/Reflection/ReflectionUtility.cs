@@ -116,27 +116,34 @@ namespace UniverseLib
 
         internal static void CacheTypes(Assembly asm)
         {
-            foreach (Type type in asm.GetTypes())
+            try
             {
-                // Cache namespace if there is one
-                if (!string.IsNullOrEmpty(type.Namespace) && !uniqueNamespaces.Contains(type.Namespace))
+                foreach (Type type in asm.GetTypes())
                 {
-                    uniqueNamespaces.Add(type.Namespace);
-                    int i = 0;
-                    while (i < AllNamespaces.Count)
+                    // Cache namespace if there is one
+                    if (!string.IsNullOrEmpty(type.Namespace) && !uniqueNamespaces.Contains(type.Namespace))
                     {
-                        if (type.Namespace.CompareTo(AllNamespaces[i]) < 0)
-                            break;
-                        i++;
+                        uniqueNamespaces.Add(type.Namespace);
+                        int i = 0;
+                        while (i < AllNamespaces.Count)
+                        {
+                            if (type.Namespace.CompareTo(AllNamespaces[i]) < 0)
+                                break;
+                            i++;
+                        }
+                        AllNamespaces.Insert(i, type.Namespace);
                     }
-                    AllNamespaces.Insert(i, type.Namespace);
+
+                    // Cache the type. Overwrite type if one exists with the full name
+                    AllTypes[type.FullName] = type;
+
+                    // Invoke listener
+                    OnTypeLoaded?.Invoke(type);
                 }
-
-                // Cache the type. Overwrite type if one exists with the full name
-                AllTypes[type.FullName] = type;
-
-                // Invoke listener
-                OnTypeLoaded?.Invoke(type);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
             }
         }
 

@@ -15,7 +15,7 @@
         <AllowedReferenceRelatedFileExtensions>none</AllowedReferenceRelatedFileExtensions>
         <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
         <Configurations>ML_Cpp_net6</Configurations>
-        <GamePath>F:\SteamLibrary\steamapps\common\SOTF_Melon</GamePath>
+        <GamePath>F:\SteamLibrary\steamapps\common\Sons Of The Forest</GamePath>
     </PropertyGroup>
     <!-- Configurations -->
     <PropertyGroup>

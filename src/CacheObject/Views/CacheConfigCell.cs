@@ -72,6 +72,11 @@ namespace UnityExplorer.CacheObject.Views
             UIFactory.SetLayoutElement(separator, minHeight: 1, flexibleHeight: 0, flexibleWidth: 9999);
             separator.AddComponent<Image>().color = Color.black;
 
+            if (OnlySubContent)
+            {
+                horiGroup.SetActive(false);
+            }
+
             return UIRoot;
         }
 

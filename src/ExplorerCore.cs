@@ -75,7 +75,8 @@ namespace UnityExplorer
 
             Log($"{NAME} {VERSION} ({Universe.Context}) initialized.");
             
-            MaterialSync.Start();
+            // MaterialSync.Start();
+            VsCodeInterop.Start();
             
             RLog.MsgDrawingCallbackHandler += OnRLogMsg;
             RLog.ErrorCallbackHandler += OnRLogError;
@@ -139,6 +140,7 @@ namespace UnityExplorer
             }
             
             ConsoleController.CheckQuickScripts();
+            VsCodeInterop.Tick();
         }
 
 

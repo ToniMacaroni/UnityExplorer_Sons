@@ -1,4 +1,5 @@
-﻿using Il2CppInterop.Runtime;
+﻿using System.Diagnostics;
+using Il2CppInterop.Runtime;
 
 using UnityExplorer.Config;
 using UnityExplorer.CSConsole;
@@ -31,7 +32,9 @@ namespace UnityExplorer.UI
             UIInspectorResults,
             HookManager,
             Clipboard,
-            Freecam
+            Freecam,
+            UIInspector,
+            MaterialInspector,
         }
 
         public enum VerticalAnchor
@@ -59,7 +62,7 @@ namespace UnityExplorer.UI
 
         public static RectTransform NavBarRect;
         public static GameObject NavbarTabButtonHolder;
-        private static readonly Vector2 NAVBAR_DIMENSIONS = new(1160f, 35f);
+        private static readonly Vector2 NAVBAR_DIMENSIONS = new(-600, 35);
 
         private static ButtonRef closeBtn;
         private static TimeScaleWidget timeScaleWidget;
@@ -143,7 +146,12 @@ namespace UnityExplorer.UI
             UIPanels.Add(Panels.Clipboard, new ClipboardPanel(UiBase));
             UIPanels.Add(Panels.ConsoleLog, new LogPanel(OverlayBase));
             UIPanels.Add(Panels.Options, new OptionsPanel(UiBase));
-            UIPanels.Add(Panels.UIInspectorResults, new MouseInspectorResultsPanel(UiBase));
+            
+            if(ConfigManager.Enable_Ui_Inspector.Value)
+                UIPanels.Add(Panels.UIInspector, new UIInspectorPanel(UiBase));
+            
+            if(ConfigManager.Enable_Material_Inspector.Value)
+                UIPanels.Add(Panels.MaterialInspector, new MaterialInspectorPanel(UiBase));
 
             MouseInspector.inspectorUIBase = UniversalUI.RegisterUI(MouseInspector.UIBaseGUID, null);
             new MouseInspector(MouseInspector.inspectorUIBase);
@@ -218,15 +226,15 @@ namespace UnityExplorer.UI
             switch (NavbarAnchor)
             {
                 case VerticalAnchor.Top:
-                    NavBarRect.anchorMin = new Vector2(0.5f, 1f);
-                    NavBarRect.anchorMax = new Vector2(0.5f, 1f);
+                    NavBarRect.anchorMin = new Vector2(0f, 1f);
+                    NavBarRect.anchorMax = new Vector2(1f, 1f);
                     NavBarRect.anchoredPosition = new Vector2(NavBarRect.anchoredPosition.x, 0);
                     NavBarRect.sizeDelta = NAVBAR_DIMENSIONS;
                     break;
 
                 case VerticalAnchor.Bottom:
-                    NavBarRect.anchorMin = new Vector2(0.5f, 0f);
-                    NavBarRect.anchorMax = new Vector2(0.5f, 0f);
+                    NavBarRect.anchorMin = new Vector2(0f, 0f);
+                    NavBarRect.anchorMax = new Vector2(1f, 0f);
                     NavBarRect.anchoredPosition = new Vector2(NavBarRect.anchoredPosition.x, 35);
                     NavBarRect.sizeDelta = NAVBAR_DIMENSIONS;
                     break;
@@ -355,6 +363,15 @@ namespace UnityExplorer.UI
                 }
             };
 #endif
+            
+            var debugBtn = UIFactory.CreateButton(navbarPanel, "DebugButton", "Debug");
+            UIFactory.SetLayoutElement(debugBtn.Component.gameObject, minHeight: 25, minWidth: 60, flexibleWidth: 0);
+            RuntimeHelper.SetColorBlock(debugBtn.Component, new Color(0.35f, 0.63f, 0.33f),
+                new Color(0.35f, 0.79f, 0.16f), new Color(0.33f, 0.44f, 0.31f));
+            debugBtn.OnClick += () =>
+            {
+                Debugger.Launch();
+            };
             
             closeBtn = UIFactory.CreateButton(navbarPanel, "CloseButton", ConfigManager.Master_Toggle.Value.ToString());
             UIFactory.SetLayoutElement(closeBtn.Component.gameObject, minHeight: 25, minWidth: 60, flexibleWidth: 0);

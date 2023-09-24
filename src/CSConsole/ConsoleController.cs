@@ -65,6 +65,7 @@ namespace UnityExplorer.CSConsole
                 
                 var useControl = keyStr.Contains('^');
                 var useShift = keyStr.Contains('+');
+                
                 if(useControl)
                     keyStr = keyStr.Substring(1);
                 
@@ -308,7 +309,10 @@ namespace UnityExplorer.CSConsole
                         repl.Invoke(ref ret);
                         string result = ret?.ToString();
                         if (!string.IsNullOrEmpty(result))
+                        {
                             ExplorerCore.Log($"Invoked REPL, result: {ret}");
+                            VsCodeInterop.Send(ret.ToString());
+                        }
                         else
                             ExplorerCore.Log($"Invoked REPL (no return value)");
                     }

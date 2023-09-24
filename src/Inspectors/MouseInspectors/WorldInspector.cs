@@ -1,13 +1,33 @@
-﻿namespace UnityExplorer.Inspectors.MouseInspectors
+﻿using RedLoader;
+using UnityExplorer.Config;
+
+namespace UnityExplorer.Inspectors.MouseInspectors
 {
     public class WorldInspector : MouseInspectorBase
     {
         private static Camera MainCamera;
         private static GameObject lastHitObject;
+        private static int _layerMask;
 
         public override void OnBeginMouseInspect()
         {
             MainCamera = Camera.main;
+            
+            _layerMask = ~0;
+            
+            if (!string.IsNullOrEmpty(ConfigManager.Inspector_Ignore_Layers.Value))
+            {
+                var splitted = ConfigManager.Inspector_Ignore_Layers.Value.Split(',');
+                foreach (var layerName in splitted)
+                {
+                    var layer = LayerMask.NameToLayer(layerName);
+                    _layerMask &= ~(1 << layer);
+                    RLog.Msg($"Added layer {layerName} to ignore mask");
+                }
+                
+                RLog.Msg($"World Inspector ignoring layers: {ConfigManager.Inspector_Ignore_Layers.Value}");
+                RLog.Msg($"Resulting Layer mask is: {_layerMask}");
+            }
 
             if (!MainCamera)
             {
@@ -38,7 +58,7 @@
             }
 
             Ray ray = MainCamera.ScreenPointToRay(mousePos);
-            Physics.Raycast(ray, out RaycastHit hit, 1000f);
+            Physics.Raycast(ray, out RaycastHit hit, 1000f, _layerMask);
 
             if (hit.transform)
                 OnHitGameObject(hit.transform.gameObject);
