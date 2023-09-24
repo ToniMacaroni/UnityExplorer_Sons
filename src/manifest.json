@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/ToniMacaroni/RedLoader/main/MetadataSchema.json",
   "id": "UnityExplorer",
   "author": "Sinaidev, Toni Macaroni",
-  "version": "4.9.3",
+  "version": "4.9.4",
   "description": "UnityExplorer fork with various fixes and features for Sons Of The Forest",
   "gameVersion": "1.0.0",
   "url": "https://github.com/ToniMacaroni/UnityExplorer_Sons"
